@@ -1,0 +1,1 @@
+This directory should contain the yWorks (yFiles for HTML) distribution. See the [yWorks website](http://www.yWorks.com) for more info.

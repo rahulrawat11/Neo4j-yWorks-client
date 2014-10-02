@@ -1,0 +1,19 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/jquery.pageslide.css')
+    link(rel='stylesheet', href='/stylesheets/kendo.common.min.css')
+    link(rel='stylesheet', href='/stylesheets/kendo.flat.min.css')
+
+
+    block head
+  body
+    header#Header
+        block banner
+    main#Content
+        block content
+    footer#Footer
+        span(class="Copyright") Copyright &copy; 2011-2014 yWorks GmbH · All rights reserved
+        block footer

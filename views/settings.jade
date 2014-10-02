@@ -1,0 +1,28 @@
+doctype html
+html
+    head
+        title Help page
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        script(src="/javascripts/jquery.min.js")
+    body
+       p This demo shows how a Neo4j graph database can be used as a backend for yFiles diagrams. The HTML client does not connect directly to the Neo4j REST service, but is connect through a NodeJS middleware thus creating a classic 3-tier architecture. This allows for custom business logic as well as transformation, security checks or integration of the data before being made available as JSON to the client.
+       p The topic database used is based on the freely available <a href="http://conceptnet5.media.mit.edu" target="_blank" class="Anchor">ConceptNet 5 data</a> containing millions of topic and relationships.
+       p(class="ParaTitle") Things to try
+           ul
+               li Type a topic in the search box (e.g. <span class="Anchor" onclick='window.top.app.launch(this)'>apple</span>, <span class="Anchor" onclick='window.top.app.launch(this)'>apology</span>, <span class="Anchor" onclick='window.top.app.launch(this)'>physics</span> ). The wildcard search will display a topic as well as related topics.
+               li Click on the details panel to see the related topics and click on any of them to renew the display with the clicked topic (iterative knowledge discover).
+       p(class="ParaTitle") Settings
+       div
+           span Layout:
+           input(type="radio", name="layout", value="organic", id="organic", checked="true")
+           label(for="organic") organic
+           input(type="radio", name="layout", value="hierarchical", id="hierarchical")
+           label(for="hierarchical") hierarchical
+       script.
+           function updateSettings(){
+                window.top.app.preferredLayout = $('input[name=layout]:checked').val();
+                console.log(window.top.app.preferredLayout );
+                window.top.app.requery();
+           }
+           $("#organic").click(updateSettings);
+           $("#hierarchical").click(updateSettings);

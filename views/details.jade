@@ -1,0 +1,55 @@
+doctype html
+html
+    head
+        title Details page
+        link(rel='stylesheet', href='/stylesheets/style.css')
+
+        script(src="/javascripts/jquery.min.js")
+        script(src="/javascripts/kendo/kendo.all.min.js")
+    body
+
+       p Topics related to&nbsp;
+        span(class="SpecialTerm") #{term}
+       div#grid
+           style(scoped).
+                thead{text-align: left;}
+       script.
+
+           $(document).ready(
+
+               function () {
+
+                   $.get("/search/" + '#{term}', function (d) {
+                        $("#grid").kendoGrid({
+                            rowTemplate: kendo.template($("#rowTemplate").html()),
+                            dataSource: {
+                            data: d.nodes,
+                            schema: {
+                                model: {
+                                    fields: {
+                                        id: { type: "number" },
+                                        name: { type: "string" }
+                                    }
+                                }
+                             }
+                            },
+                            columns: [
+                                { field: "id", title: "Id", format: "{0:d}", width: "130px",
+                                        headerAttributes: {
+                                                             style: "text-align: left; color:GhostWhite;font-weight:bold;"
+                                                           }
+                                },
+                                { field: "name", title: "Topic", width: "130px",
+                                    headerAttributes: {
+                                                             style: "text-align: left; color:GhostWhite;font-weight:bold;"
+                                                           }
+                                }
+                            ]
+                        });
+                        var grid = $("#stuff").data("kendoGrid");
+
+                    });
+                }
+            );
+        script(id="rowTemplate", type="text/x-kendo-tmpl").
+            <tr data-uid='#{"#: uid #"}'><td><span class="ItalicId">#{"#: id #"}</span></td><td><span class='ClickableTopic' onclick='window.top.app.launch(this)'> #{"#: name #"}</span></td></tr>

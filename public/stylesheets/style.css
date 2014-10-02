@@ -1,0 +1,188 @@
+
+html, body {
+    width: 100%;
+    height: 98%;
+    padding: 0;
+    margin: 0;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10pt;
+    color: dimgray;
+}
+
+a {
+    color: #00B7FF;
+}
+
+#graphCanvas, .canvascontrol {
+    width: 100%;
+    height: 90%;
+    padding: 0;
+    margin: 0;
+}
+
+.PageTitle{
+    font-size: 12pt;
+    color:GhostWhite;
+    margin: 12px;
+}
+
+header{
+    padding: 5px;
+    background-color: Orange;
+    height:50px;
+    border-bottom: 10px solid rgb(198, 219, 232);
+}
+
+main{
+    width: 100%;
+    height: 90%;
+    padding: 0;
+    margin: 0;
+}
+footer{
+    padding: 10px;
+    background-color: dimgray;
+    height: 5%;
+    color:GhostWhite;
+    text-align: center;
+}
+.Copyright{
+    font-size: 9pt;
+}
+
+.SearchBox1{
+    border: 1px solid silver;
+    border-right: 5px;
+    position: absolute;
+    top: 35px;
+    align-content: center;
+    text-align: left;
+    padding: 3px;
+    width: 200px;
+    margin: 0px auto;
+}
+
+#SearchWrapper{
+    margin: -17px auto 5px auto;
+    display: table;
+    border-color: orange;
+    border-width: 5px;
+    border-style: solid;
+}
+
+#SearchBox{
+    border:none;
+    outline: none;
+    background: #fff;
+
+    overflow: hidden;
+    text-align: left;
+    padding: 3px 5px;
+    width: 300px;
+    font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    font-size: 10pt;
+    color: dimgray;
+}
+
+.HelpTab {
+    position: absolute;
+    height: 30px;
+    width: 110px;
+    left: 0;
+    padding: 0 0 0 18px;
+    top: 300px;
+    margin: 7px -4px 15px -50px;
+    background-color: #333;
+    -ms-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+    color: white;
+    -webkit-transform: rotate(-90deg);
+    -moz-transform: rotate(-90deg);
+    -ms-transform: rotate(-90deg);
+    -o-transform: rotate(-90deg);
+    transform: rotate(-90deg);
+    /* also accepts left, right, top, bottom coordinates; not required, but a good idea for styling */
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    /* Should be unset in IE9+ I think. */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.DetailsTab {
+    position: absolute;
+    height: 30px;
+    width: 110px;
+    right: 0;
+    padding: 0 0 0 18px;
+    top: 300px;
+    margin: 7px -50px 15px -4px;
+    background-color: #333;
+    -ms-border-radius: 0 0 5px 5px;
+    border-radius: 0 0 5px 5px;
+    color: white;
+    -webkit-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+    -webkit-transform-origin: 50% 50%;
+    -moz-transform-origin: 50% 50%;
+    -ms-transform-origin: 50% 50%;
+    -o-transform-origin: 50% 50%;
+    transform-origin: 50% 50%;
+    /* Should be unset in IE9+ I think. */
+    filter: progid:DXImageTransform.Microsoft.BasicImage(rotation=3);
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.ClickableTopic{
+    cursor: pointer;
+    color:Dimgray;
+}
+
+.ClickableTopic:hover{
+    color:Orange;
+}
+
+.SpecialTerm{
+    color: Orange;
+    font-weight: bold;
+}
+
+.ItalicId{
+    font-style: italic;
+}
+
+.DetailsLabel{
+    position: absolute;
+    top: 5px;
+    left: 36px;
+}
+
+.HelpLabel{
+    position: absolute;
+    top: 5px;
+    left: 50px;
+}
+
+.SloganWrapper{
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+
+.ParaTitle{
+    font-weight: bold;
+}
+
+.Anchor{
+    text-decoration: none;
+    color: dodgerblue;
+    cursor: pointer;
+}

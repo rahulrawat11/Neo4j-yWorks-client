@@ -1,0 +1,29 @@
+extends layout
+block head
+    script(src="/javascripts/yfiles-typeinfo.js")
+    script(src="/javascripts/yFiles/es5-shim.js")
+    script(src="/javascripts/require.js")
+
+    link(rel='stylesheet', href='/stylesheets/yFiles.css')
+    link(rel='stylesheet', href='/stylesheets/kendo.common.min.css')
+    link(rel='stylesheet', href='/stylesheets/kendo.flat.min.css')
+block banner
+    div(class="PageTitle") Neo4j client
+    div(class="SloganWrapper")
+        img(src="/images/ylogo.png")
+        img(src="/images/header-slogan.png", style="padding-bottom:5px;")
+block content
+    div#Message
+    div#SearchWrapper
+        input#SearchBox(placeholder="Search for a topic")
+    div#graphCanvas
+    div#HelpTab(class="HelpTab")
+        span(class="HelpLabel") Help
+    div#DetailsTab(class="DetailsTab")
+        span(class="DetailsLabel") Details
+    script.
+        require.baseUrl = '/javascripts/';
+        require(['license','yfiles/complete','jquery.min','dynamicOrganic','app','yStyles','jquery.pageslide.min','kendo/kendo.all.min'],function(){
+                window.app = app;
+
+            });

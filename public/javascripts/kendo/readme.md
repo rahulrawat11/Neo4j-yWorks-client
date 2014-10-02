@@ -1,0 +1,1 @@
+This directory needs the "kendo.all.min.js" files which comes with your Kendo UI subscription. See [Kendo UI | Telerik](http://www.kendoui.com) for more info.

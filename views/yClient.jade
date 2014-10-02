@@ -1,0 +1,89 @@
+doctype html
+html
+    head
+        title yWorks HTML client for Neo4j
+        link(rel='stylesheet', href='/stylesheets/style.css')
+        link(rel='stylesheet', href='/stylesheets/yFiles.css')
+        style.
+            html, body, #graphCanvas, .canvascontrol {
+                width: 100%;
+                height: 100%;
+                padding: 0;
+                margin: 0;
+                border: 1px solid dimgrey;
+            }
+        script(src="/javascripts/jquery.min.js").
+    body
+        h1 Simple yFiles client test
+        div#stuff
+        div#graphCanvas
+        script(src="/javascripts/yfiles-typeinfo.js")
+        script(src="/javascripts/yFiles/es5-shim.js")
+        script(src="/javascripts/require.js")
+        script.
+
+            require.baseUrl = '/javascripts/';
+            require(['license', 'yfiles/complete','jquery.min','yStyles'],
+            function(){
+                    var graphControl = new yfiles.canvas.GraphControl.ForId('graphCanvas');
+                    var nodeStyle = new yfiles.drawing.ShapeNodeStyle();
+                    graphControl.graph.nodeDefaults.style = nodeStyle;
+                    nodeStyle.drawShadow = false;
+                    var graph = graphControl.graph;
+                    graph.nodeDefaults.shareStyleInstance = true;
+                    graph.edgeDefaults.shareStyleInstance = true;
+                    var mode = new yfiles.input.GraphEditorInputMode();
+                    graphControl.inputMode = mode;
+
+
+                    graph.edgeDefaults.labels.style = new Orbifold.NeoSimpleLabelStyle();
+                    var node = graph.createNodeWithBounds(new yfiles.geometry.RectD(10,10,70,70));
+
+                    graph.addLabel(node, 'From');
+                    var node2 = graph.createNodeWithBounds(new yfiles.geometry.RectD(10,10,70,70));
+                    graph.addLabel(node2, 'There');
+                    var edge = graph.createEdge(node, node2);
+                    graph.addLabel(edge,"here to");
+                    var layout = new yfiles.organic.OrganicLayouter();
+                    layout.preferredEdgeLength = 200;
+                    graphControl.graph.applyLayout(layout);
+                    graphControl.fitGraphBounds();
+
+                    function setStyle(node){
+                        graph.setNodeStyle(node,
+                        new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
+                            yfiles.drawing.ShapeNodeShape.ELLIPSE,
+                            yfiles.system.Pens.ORANGE_RED,
+                            yfiles.system.Brushes.ORANGE));
+                    }
+                    setStyle(node);
+                    setStyle(node2);
+                    function onHoveredItemChanged(  sender,  hoveredItemChangedEventArgs) {
+                        var  manager = graphControl.highlightPaintManager;
+                        manager.clearHighlights();
+
+                        var  newItem = hoveredItemChangedEventArgs.item;
+                        if (newItem !== null) {
+                            manager.addHighlight(newItem);
+                            /*if (yfiles.graph.INode.isInstance(newItem)) {
+                                // and if it's a node, we highlight all adjacent edges, too
+                                graphControl.graph.edgesAtOwner((*//**@type {yfiles.graph.INode}*//*(newItem))).forEach(function(*//**yfiles.graph.IEdge*//* edge) {
+                                manager.addHighlight(edge);
+                                });
+                                }
+                            else if (yfiles.graph.IEdge.isInstance(newItem)) {
+                                manager.addHighlight(((*//**@type {yfiles.graph.IEdge}*//*(newItem))).getSourceNode());
+                                manager.addHighlight(((*//**@type {yfiles.graph.IEdge}*//*(newItem))).getTargetNode());
+                                }*/
+                        }
+                    }
+
+                    mode.itemHoverInputMode.enabled = true;
+                    // set the items to be reported
+                    mode.itemHoverInputMode.hoverItems = yfiles.graph.GraphItemTypes.NODE;
+                    // if there are other items (most importantly labels) in front of edges or nodes
+                    // they should be discarded, rather than be reported as "null"
+                    mode.itemHoverInputMode.discardInvalidItems = false;
+                    // whenever the currently hovered item changes call our method
+                    mode.itemHoverInputMode.addHoveredItemChangedListener(yfiles.lang.delegate( onHoveredItemChanged, this));
+             })
