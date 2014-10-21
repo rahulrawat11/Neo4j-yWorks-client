@@ -18,8 +18,6 @@ define(['jquery.min', 'yfiles/complete', 'underscore.min', 'yStyles'], function 
         graphControl.graph.nodeDefaults.style = nodeStyle;
 
         var graph = graphControl.graph;
-        graph.nodeDefaults.shareStyleInstance = true;
-        graph.edgeDefaults.shareStyleInstance = true;
         graph.edgeDefaults.labels.style = new Orbifold.NeoSimpleLabelStyle();
 
         var mode = new yfiles.input.GraphEditorInputMode();
@@ -202,47 +200,33 @@ define(['jquery.min', 'yfiles/complete', 'underscore.min', 'yStyles'], function 
         l.maximumDuration = 5000;
         app.graphControl.graph.applyLayout(l);
         app.graphControl.fitGraphBounds();
-    }
+    } 
 
-    /***
-     * Creates a dummy, random graph.
-     * For testing purposes.
-     */
-    function randomGraph() {
-        var nodes = [];
-        var adj = [];
-        var colors = [
-            yfiles.system.Brushes.LIGHT_BLUE,
-            yfiles.system.Brushes.BLUE,
-            yfiles.system.Brushes.ORANGE,
-            yfiles.system.Brushes.GREEN_YELLOW];
-        for (var i = 0; i < 40; i++) {
-            var size = _.random(50, 120);
-            var node = graph.createNodeWithBounds(new yfiles.geometry.RectD(50, 50, size, size));
-            node.id = i;
-            adj[i] = [];
-            nodes.push(node);
-            var color = colors[_.random(1, 3)];
-            graph.setNodeStyle(node, new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(yfiles.drawing.ShapeNodeShape.ELLIPSE, yfiles.system.Pens.BLUE_VIOLET, color));
-        }
+    var orangeStyle = new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
+                        yfiles.drawing.ShapeNodeShape.ELLIPSE,
+                        yfiles.system.Pens.ORANGE_RED,
+                        yfiles.system.Brushes.ORANGE);
+                        
+    var blueStyle = new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
+                        yfiles.drawing.ShapeNodeShape.ELLIPSE,
+                        yfiles.system.Pens.BLUE,
+                        yfiles.system.Brushes.LIGHT_BLUE);  
+                        
+    var purpleStyle = new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
+                        yfiles.drawing.ShapeNodeShape.ELLIPSE,
+                        yfiles.system.Pens.DARK_BLUE,
+                        yfiles.system.Brushes.VIOLET); 
 
-        for (var j = 0; j < 50; j++) {
-            var from = _.random(0, nodes.length - 1);
-            var source = nodes[from];
-            var to = _.random(0, nodes.length - 1);
-            if (from !== to && adj[from].indexOf(to) < 0) {
-                adj[from].push(to);
-                var target = nodes[to];
-                graph.createEdge(source, target);
-            }
-        }
+    var turquoiseStyle = new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
+                        yfiles.drawing.ShapeNodeShape.ELLIPSE,
+                        yfiles.system.Pens.LIGHT_SLATE_GRAY,
+                        yfiles.system.Brushes.MEDIUM_TURQUOISE); 
 
-        // hierarchyLayout();
-        var dynamics = new Orbifold.DynamicOrganic();
-        dynamics.graphControl = graphControl;
-        dynamics.loaded();
-    }
-
+    var defaultStyle = new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
+                        yfiles.drawing.ShapeNodeShape.ELLIPSE,
+                        yfiles.system.Pens.GRAY,
+                        yfiles.system.Brushes.LIGHT_STEEL_BLUE);                        
+    
     /***
      * Sets a predefined style from the palette.
      * @param node The node to style.
@@ -251,39 +235,19 @@ define(['jquery.min', 'yfiles/complete', 'underscore.min', 'yStyles'], function 
     function setStyle(node, name) {
         switch (name.toLocaleLowerCase()) {
             case "orange":
-                app.graph.setNodeStyle(node,
-                    new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
-                        yfiles.drawing.ShapeNodeShape.ELLIPSE,
-                        yfiles.system.Pens.ORANGE_RED,
-                        yfiles.system.Brushes.ORANGE));
+                app.graph.setNodeStyle(node, orangeStyle);
                 break;
             case "blue":
-                app.graph.setNodeStyle(node,
-                    new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
-                        yfiles.drawing.ShapeNodeShape.ELLIPSE,
-                        yfiles.system.Pens.BLUE,
-                        yfiles.system.Brushes.LIGHT_BLUE));
+                app.graph.setNodeStyle(node, blueStyle);
                 break;
             case "purple":
-                app.graph.setNodeStyle(node,
-                    new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
-                        yfiles.drawing.ShapeNodeShape.ELLIPSE,
-                        yfiles.system.Pens.DARK_BLUE,
-                        yfiles.system.Brushes.VIOLET));
+                app.graph.setNodeStyle(node, purpleStyle);
                 break;
             case "turquoise":
-                app.graph.setNodeStyle(node,
-                    new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
-                        yfiles.drawing.ShapeNodeShape.ELLIPSE,
-                        yfiles.system.Pens.LIGHT_SLATE_GRAY,
-                        yfiles.system.Brushes.MEDIUM_TURQUOISE));
+                app.graph.setNodeStyle(node, turquoiseStyle);
                 break;
             case "default":
-                app.graph.setNodeStyle(node,
-                    new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
-                        yfiles.drawing.ShapeNodeShape.ELLIPSE,
-                        yfiles.system.Pens.GRAY,
-                        yfiles.system.Brushes.LIGHT_STEEL_BLUE));
+                app.graph.setNodeStyle(node, defaultStyle);
                 break;
         }
     }
@@ -396,7 +360,6 @@ define(['jquery.min', 'yfiles/complete', 'underscore.min', 'yStyles'], function 
         "graphControl": null,
         "dynamics": null,
         "loadPeople": loadPeople,
-        "randomGraph": randomGraph,
         "oneEdge": oneEdge,
         "setStyle": setStyle,
         "setSize": setSize,

@@ -37,27 +37,22 @@ html
 
 
                     graph.edgeDefaults.labels.style = new Orbifold.NeoSimpleLabelStyle();
-                    var node = graph.createNodeWithBounds(new yfiles.geometry.RectD(10,10,70,70));
-
-                    graph.addLabel(node, 'From');
-                    var node2 = graph.createNodeWithBounds(new yfiles.geometry.RectD(10,10,70,70));
-                    graph.addLabel(node2, 'There');
-                    var edge = graph.createEdge(node, node2);
-                    graph.addLabel(edge,"here to");
-                    var layout = new yfiles.organic.OrganicLayouter();
-                    layout.preferredEdgeLength = 200;
-                    graphControl.graph.applyLayout(layout);
-                    graphControl.fitGraphBounds();
-
-                    function setStyle(node){
-                        graph.setNodeStyle(node,
-                        new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
+                    var nodeStyle = new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
                             yfiles.drawing.ShapeNodeShape.ELLIPSE,
                             yfiles.system.Pens.ORANGE_RED,
                             yfiles.system.Brushes.ORANGE));
-                    }
-                    setStyle(node);
-                    setStyle(node2);
+                    var node = graph.createNodeWithBoundsAndStyle(new yfiles.geometry.RectD(10,10,70,70), nodeStyle);
+                    
+                    graph.addLabel(node, 'From');
+                    var node2 = graph.createNodeWithBoundsAndStyle(new yfiles.geometry.RectD(10,10,70,70), nodeStyle);
+                    graph.addLabel(node2, 'There');
+                    var edge = graph.createEdge(node, node2);
+                    graph.addLabel(edge,"here to");
+                    var layout = new yfiles.circular.CircularLayouter();
+                    layout.preferredEdgeLength = 200;
+                    graphControl.graph.applyLayout(layout);
+                    graphControl.fitGraphBounds();
+                    
                     function onHoveredItemChanged(  sender,  hoveredItemChangedEventArgs) {
                         var  manager = graphControl.highlightPaintManager;
                         manager.clearHighlights();
