@@ -2,9 +2,7 @@
  * Contains the API of the Neo4j application.
  * */
 
-define(['jquery.min', 'yfiles/graph-base', 'yfiles/graph-style-defaults', 'yfiles/graph-style-simple',
-    'yfiles/layout-hierarchic', 'yfiles/layout-organic', 'yfiles/graph-layout-bridge', 'yfiles/layout-misc',
-    'underscore.min', 'yStyles', 'kendo/kendo.all.min', 'jquery.pageslide.min'], function () {
+define(['jquery.min', 'yfiles/complete', 'underscore.min', 'yStyles'], function () {
 
     /***
      * Creates the yFiles canvas on the given HTML id.
@@ -22,7 +20,7 @@ define(['jquery.min', 'yfiles/graph-base', 'yfiles/graph-style-defaults', 'yfile
         var graph = graphControl.graph;
         graph.edgeDefaults.labels.style = new Orbifold.NeoSimpleLabelStyle();
 
-        var mode = new yfiles.input.GraphViewerInputMode();
+        var mode = new yfiles.input.GraphEditorInputMode();
         mode.nodeCreationAllowed = false;
         mode.edgeCreationAllowed = false;
         graphControl.inputMode = mode;
@@ -187,10 +185,6 @@ define(['jquery.min', 'yfiles/graph-base', 'yfiles/graph-style-defaults', 'yfile
      */
     function hierarchyLayout() {
         var layouter = new yfiles.hierarchic.IncrementalHierarchicLayouter();
-        layouter.prependStage(new yfiles.layout.PortCalculator());
-        //layouter.automaticEdgeGrouping = true;
-        layouter.nodePlacer.baryCenterMode = true;
-        layouter.orthogonalRouting = false;
         layouter.updateContentRect = true;
         app.graphControl.graph.applyLayout(layouter);
         app.graphControl.updateContentRectWithMargins(new yfiles.geometry.InsetsD.FromLeftTopRightAndBottom(10, 10, 10, 10));
@@ -201,10 +195,9 @@ define(['jquery.min', 'yfiles/graph-base', 'yfiles/graph-style-defaults', 'yfile
      * Applies an organic layout to the current graph.
      */
     function organicLayout() {
-        var l = new yfiles.organic.SmartOrganicLayouter();
+        var l = new yfiles.organic.OrganicLayouter();
         l.preferredEdgeLength = 180;
         l.maximumDuration = 5000;
-        l.nodeEdgeOverlapAvoided = true;
         app.graphControl.graph.applyLayout(l);
         app.graphControl.fitGraphBounds();
     } 

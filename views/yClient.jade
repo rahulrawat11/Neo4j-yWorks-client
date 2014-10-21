@@ -23,7 +23,7 @@ html
         script.
 
             require.baseUrl = '/javascripts/';
-            require(['license', 'yfiles/graph-base', 'yfiles/graph-style-defaults', 'yfiles/graph-style-simple', 'yfiles/layout-organic', 'yfiles/graph-layout-bridge', 'jquery.min','yStyles'],
+            require(['license', 'yfiles/complete','jquery.min','yStyles'],
             function(){
                     var graphControl = new yfiles.canvas.GraphControl.ForId('graphCanvas');
                     var nodeStyle = new yfiles.drawing.ShapeNodeStyle();
@@ -40,7 +40,7 @@ html
                     var nodeStyle = new yfiles.drawing.ShapeNodeStyle.WithShapePenAndBrush(
                             yfiles.drawing.ShapeNodeShape.ELLIPSE,
                             yfiles.system.Pens.ORANGE_RED,
-                            yfiles.system.Brushes.ORANGE);
+                            yfiles.system.Brushes.ORANGE));
                     var node = graph.createNodeWithBoundsAndStyle(new yfiles.geometry.RectD(10,10,70,70), nodeStyle);
                     
                     graph.addLabel(node, 'From');
@@ -48,7 +48,7 @@ html
                     graph.addLabel(node2, 'There');
                     var edge = graph.createEdge(node, node2);
                     graph.addLabel(edge,"here to");
-                    var layout = new yfiles.organic.SmartOrganicLayouter();
+                    var layout = new yfiles.circular.CircularLayouter();
                     layout.preferredEdgeLength = 200;
                     graphControl.graph.applyLayout(layout);
                     graphControl.fitGraphBounds();
