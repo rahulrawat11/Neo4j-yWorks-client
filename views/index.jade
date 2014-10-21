@@ -23,7 +23,8 @@ block content
         span(class="DetailsLabel") Details
     script.
         require.baseUrl = '/javascripts/';
-        require(['license','yfiles/complete','jquery.min','dynamicOrganic','app','yStyles','jquery.pageslide.min','kendo/kendo.all.min'],function(){
+        require(['license','yfiles/graph-base', 'yfiles/graph-style-defaults', 'yfiles/graph-style-simple', 'jquery.min', 'dynamicOrganic','app','yStyles', 'kendo/kendo.all.min'],function(){
+            require(['jquery.pageslide.min'],function() {
                 window.app = app;
-
             });
+        });
