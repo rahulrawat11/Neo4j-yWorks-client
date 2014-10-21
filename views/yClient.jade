@@ -21,8 +21,9 @@ html
         script(src="/javascripts/yFiles/es5-shim.js")
         script(src="/javascripts/require.js")
         script.
-
-            require.baseUrl = '/javascripts/';
+            require.config({
+                baseUrl: '/javascripts/'
+            });
             require(['license', 'yfiles/graph-base', 'yfiles/graph-style-defaults', 'yfiles/graph-style-simple', 'yfiles/layout-organic', 'yfiles/graph-layout-bridge', 'jquery.min', 'yStyles'],
             function(){
                     var graphControl = new yfiles.canvas.GraphControl.ForId('graphCanvas');

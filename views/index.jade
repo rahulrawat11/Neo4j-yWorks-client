@@ -22,7 +22,9 @@ block content
     div#DetailsTab(class="DetailsTab")
         span(class="DetailsLabel") Details
     script.
-        require.baseUrl = '/javascripts/';
+        require.config({
+            baseUrl: '/javascripts/'
+        });
         require(['license','yfiles/graph-base', 'yfiles/graph-style-defaults', 'yfiles/graph-style-simple', 'jquery.min', 'dynamicOrganic','app','yStyles', 'kendo/kendo.all.min'],function(){
             require(['jquery.pageslide.min'],function() {
                 window.app = app;
